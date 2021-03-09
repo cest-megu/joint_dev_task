@@ -164,18 +164,19 @@ end
 
 class UserQ17
   # 以下に回答を記載
-  attr_accessor :name, :age, :gender
 
   def initialize(name:, age:, gender:)
     @name = name
-    @age = age
+    @age  = age
     @gender = gender
   end
 
   def info
-    puts "名前: #{@name}"
-    puts "年齢: #{@age}"
-    puts "性別: #{@gender}"
+    puts <<~TEXT
+    名前: #{@name}
+    年齢: #{@age }
+    性別: #{@gender}
+    TEXT
   end
 
 end
@@ -192,15 +193,14 @@ end
 
 class UserQ18
   # 以下に回答を記載
-  attr_accessor :name, :age
 
   def initialize(name:, age:)
     @name = name
-    @age = age
+    @age  = age
   end
 
   def introduce
-    if @age > 30
+    if @age  > 30
       puts "こんにちは, #{@name}と申します。宜しくお願いいたします。"
     else
       puts "はいさいまいど〜, #{@name}です！！"
@@ -220,6 +220,7 @@ end
 
 class Item
   # 以下を修正して下さい
+  attr_accessor :name
 
   def initialize(name)
     @name = name
@@ -234,12 +235,36 @@ end
 
 class UserQ20
   # 以下に回答を記載
+  attr_accessor :name, :age
+
+  def initialize(name:, age:)
+    @name = name
+    @age = age
+  end
 
 end
 
 class Zoo
   # 以下に回答を記載
+  attr_accessor :name, :entry_fee
 
+  def initialize(name:, entry_fee:)
+    @name = name
+    @entry_fee = entry_fee
+  end
+
+
+  def info_entry_fee(user)
+    if user.age >= 0 && user.age <= 5
+    puts "#{user.name}さんの入場料金は #{@entry_fee[:infant]} 円です。"
+    elsif user.age >= 6 && user.age <= 12
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:children]} 円です。"
+    elsif user.age >=13 && user.age <= 64
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:adult]} 円です。"
+    else
+      puts "#{user.name}さんの入場料金は #{@entry_fee[:senior]} 円です。"
+    end
+  end
 end
 
 
@@ -253,7 +278,6 @@ def q20
     UserQ20.new(name: "あじー", age: 32),
     UserQ20.new(name: "ぎん", age: 108)
   ]
-
   users.each do |user|
     zoo.info_entry_fee(user)
   end
