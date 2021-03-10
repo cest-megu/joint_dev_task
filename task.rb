@@ -201,9 +201,9 @@ class UserQ18
 
   def introduce
     if @age  > 30
-      print "こんにちは, #{@name}と申します。宜しくお願いいたします。"
+       "こんにちは, #{@name}と申します。宜しくお願いいたします。"
     else
-      print "はいさいまいど〜, #{@name}です！！"
+       "はいさいまいど〜, #{@name}です！！"
     end
   end
 
@@ -220,9 +220,9 @@ end
 
 class Item
   # 以下を修正して下さい
-  attr_accessor :name
+  attr_reader :name
 
-  def initialize(name)
+  def initialize(name:)
     @name = name
   end
 end
@@ -246,7 +246,7 @@ end
 
 class Zoo
   # 以下に回答を記載
-  attr_accessor :name, :entry_fee
+  attr_reader :name, :entry_fee
 
   def initialize(name:, entry_fee:)
     @name = name
@@ -255,15 +255,17 @@ class Zoo
 
 
   def info_entry_fee(user)
-    if user.age >= 0 && user.age <= 5
-    puts "#{user.name}さんの入場料金は #{@entry_fee[:infant]} 円です。"
-    elsif user.age >= 6 && user.age <= 12
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:children]} 円です。"
-    elsif user.age >=13 && user.age <= 64
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:adult]} 円です。"
+    fee = case user.age
+    when 0 .. 5
+       @entry_fee[:infant]
+    when 6 .. 12
+       @entry_fee[:children]
+    when 13 .. 64
+       @entry_fee[:adult]
     else
-      puts "#{user.name}さんの入場料金は #{@entry_fee[:senior]} 円です。"
+       @entry_fee[:senior]
     end
+    puts "#{user.name}さんの入場料金は#{fee}円です。"
   end
 end
 
